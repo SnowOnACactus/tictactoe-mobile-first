@@ -318,3 +318,70 @@ h1 {
     transform: translateY(0);
   }
 }
+@media (max-width: 768px) {
+  .game-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .game {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .home-base {
+    position: static; /* Remove fixed positioning */
+    width: 100%;
+    max-width: 300px;
+    transform: none;
+  }
+
+  .home-base-left,
+  .home-base-right {
+    left: auto;
+    right: auto;
+  }
+
+  .square {
+    width: 60px; /* Slightly smaller squares for mobile */
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .game-info {
+    min-width: 0;
+    width: 100%;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .control-btn {
+    flex: 1;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .victory-banner {
+    width: 90%;
+    margin: 1rem auto;
+    font-size: 1.2rem;
+  }
+}
+
+/* For even smaller screens */
+@media (max-width: 380px) {
+  .square {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+  }
+
+  .game-info {
+    flex-direction: column;
+  }
+}
