@@ -1,4 +1,5 @@
 import { Square } from './Square';
+import { calculateWinner } from '../utils/gameLogic';
 
 type BoardProps = {
   xIsNext: boolean;
@@ -8,9 +9,10 @@ type BoardProps = {
   oSymbol: string;
   xColor: string;
   oColor: string;
+  isMobile?: boolean;
 }
 
-export function Board({ xIsNext, squares, onPlay, xSymbol, oSymbol, xColor, oColor }: BoardProps) {
+export function Board({ xIsNext, squares, onPlay, xSymbol, oSymbol, xColor, oColor, isMobile = false }: BoardProps) {
   function handleClick(i: number) {
     if (squares[i] || calculateWinner(squares)) {
       return;
@@ -79,8 +81,8 @@ export function Board({ xIsNext, squares, onPlay, xSymbol, oSymbol, xColor, oCol
   }
 
   return (
-    <div className="game-board">
-      <div className="status">{status}</div>
+    <div className={`game-board ${isMobile ? 'mobile' : ''}`}>
+      {!isMobile && <div className="status">{status}</div>}
       <div className="board">
         {winningLine && (
           <div 
@@ -100,6 +102,7 @@ export function Board({ xIsNext, squares, onPlay, xSymbol, oSymbol, xColor, oCol
                   value={value}
                   onSquareClick={() => handleClick(index)}
                   style={{ color }}
+                  isMobile={isMobile}
                 />
               );
             })}
@@ -110,25 +113,7 @@ export function Board({ xIsNext, squares, onPlay, xSymbol, oSymbol, xColor, oCol
   );
 }
 
-function calculateWinner(squares: (string | null)[]): string | null {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
 
-  for (const [a, b, c] of lines) {
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
 
 function getWinningLine(squares: (string | null)[], xSymbol: string, oSymbol: string) {
   const lines = [
